@@ -1,0 +1,10 @@
+# Reproducible build output
+/index.html
+/report.md
+/_site/
+
+# Local tooling
+__pycache__/
+*.py[cod]
+.DS_Store
+.venv/

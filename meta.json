@@ -1,0 +1,18 @@
+{
+  "title": "企业 AI 观察",
+  "subtitle": "从案例到决策",
+  "edition": "2026.09",
+  "retrievedAt": "2026-09-12",
+  "timezone": "Asia/Singapore",
+  "sourceCategory": "https://claude.com/blog-category/enterprise-ai",
+  "discoverySources": [
+    "https://claude.com/blog-category/enterprise-ai",
+    "https://claude.com/blog/category/enterprise-ai?d7430fcd_page=2",
+    "https://claude.com/blog/category/enterprise-ai?2f226f2c_page=2&d7430fcd_page=2"
+  ],
+  "scope": "从指定栏目、分页及相关检索中发现 71 个去重条目。不同分页与检索返回的目录快照不一致，不能确认已覆盖栏目全量。62 篇阅读了正文主要相关段落并作分析；3 篇仅取得片段并作初步分析；6 篇仅收录目录，不编造正文。",
+  "copyright": "本站提供中文摘要、中文标题和独立企业分析，不提供原文全文或整篇中文翻译。原文版权属于其权利人，完整内容请前往原站阅读。",
+  "evidence": "主要来源为 Anthropic 官方博客。客户案例、伙伴证言和内部数据一般为厂商或案例方自报，本站未做独立审计；分析不等于效果验证。",
+  "freshness": "发布日期与本次整理日期分开标注。历史公告中的型号、价格、套餐、地区和功能状态不视为当前承诺，实施前须再次核实。",
+  "technical": "静态离线站点；无登录、后台服务、自动抓取或 AI 实时问答。收藏、阅读标记和行动清单只存于当前浏览器，不跨设备同步。"
+}

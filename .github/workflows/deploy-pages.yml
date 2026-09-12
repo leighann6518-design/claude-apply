@@ -1,0 +1,77 @@
+name: Deploy enterprise AI site to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Build and validate site
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Validate and build the website and report
+        run: |
+          python3 -m py_compile build.py
+          node --check src/app.js
+          python3 build.py
+          test -s index.html
+          test -s report.md
+          mkdir -p _site
+          cp index.html report.md _site/
+          touch _site/.nojekyll
+          printf '### Build complete\n\nGenerated the standalone website and Chinese research report.\n' >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload the Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    name: Publish to GitHub Pages
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5
+
+      - name: Deployment summary
+        if: success()
+        env:
+          PAGE_URL: ${{ steps.deployment.outputs.page_url }}
+        run: |
+          printf '### Website published\n\n%s\n' "$PAGE_URL" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: First-deployment troubleshooting
+        if: failure()
+        run: |
+          {
+            echo '### Deployment needs attention'
+            echo 'Open repository Settings > Pages > Build and deployment.'
+            echo 'Set Source to GitHub Actions, then re-run the failed deployment job.'
+            echo 'Private repositories require a GitHub plan that supports private-repository Pages.'
+            echo 'This workflow does not change repository visibility or billing.'
+            echo 'If Pages is already enabled, review the failed step above for the actual error.'
+          } >> "$GITHUB_STEP_SUMMARY"
